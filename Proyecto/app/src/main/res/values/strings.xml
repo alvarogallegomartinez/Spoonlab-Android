@@ -16,7 +16,10 @@
     <string name="no_account">No account yet? Create one</string>
     <string name="username_et">Username</string>
     <string name="password_et">Password</string>
+    <string name="confirm_password_et">Confirm password</string>
     <string name="sign_in">SIGN IN</string>
+    <string name="register">Register</string>
+    <string name="sign_up">SIGN UP</string>
     <string name="core_label">Core Course 2020/2021</string>
     <string name="credits_label">Álvaro Gallego, Sergio Gómez</string>
 </resources>
