@@ -25,7 +25,7 @@
             android:text="@string/register"
             android:fontFamily="@font/raizen_anthem"
             android:textSize="80sp"
-            android:textColor="@color/secondary_light"
+            android:textColor="@color/black"
             android:layout_margin="35dp"/>
 
     </RelativeLayout>
