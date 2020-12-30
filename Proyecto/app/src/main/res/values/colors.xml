@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--Paleta de colores de la aplicación-->
+    <color name="light_body">#f8f1f1</color>
+
+    <color name="secondary">#5eaaa8</color>
+    <color name="secondary_light">#8fdcd9</color>
+    <color name="secondary_dark">#2b7b79</color>
+
+    <color name="primary">#db6400</color>
+    <color name="primary_light">#ff923c</color>
+    <color name="primary_dark">#a23300</color>
+
 </resources>
