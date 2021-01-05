@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "643574448202",
+    "project_id": "spoonlab-db8d8",
+    "storage_bucket": "spoonlab-db8d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643574448202:android:7e6f0c8b74e469d961e6b3",
+        "android_client_info": {
+          "package_name": "com.example.spoonlab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643574448202-tk38pn6h8k4lrt3u6994dj1pl6bu0s4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhnmtcoVkkM1Ov_lEV_VnJsc9-wXWJsDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643574448202-tk38pn6h8k4lrt3u6994dj1pl6bu0s4b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
