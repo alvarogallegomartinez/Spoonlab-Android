@@ -3,12 +3,15 @@ package com.example.spoonlab;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.spoonlab.exceptions.DifferentPasswordException;
+import com.example.spoonlab.exceptions.EmptyTextException;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -19,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private Button signUpBtn;
-    private EditText usernameEt, passwordEt, confirmPassEt;
+    private EditText emailEt, passwordEt, confirmPassEt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +31,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Cogemos todos los elementos del layout
         signUpBtn = findViewById(R.id.sign_up_btn);
-        usernameEt = findViewById(R.id.username_et);
+        emailEt = findViewById(R.id.email_et);
         passwordEt = findViewById(R.id.password_et);
         confirmPassEt = findViewById(R.id.confirm_password_et);
 
         // Autenticación con firebase
-        // @TODO: Añadir el mail y la contraseña con la info del usuario y activar el registro con el botón
         mAuth = FirebaseAuth.getInstance();
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -42,37 +44,52 @@ public class RegisterActivity extends AppCompatActivity {
                 try {
                     validateData();
 
-                    String username = usernameEt.getText().toString();
+                    String email = emailEt.getText().toString();
                     String password = passwordEt.getText().toString();
 
-                    mAuth.createUserWithEmailAndPassword(username, password)
+                    mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
                                     Toast.makeText(getApplicationContext(), "Se ha registrado el usuario satisfactoriamente", Toast.LENGTH_SHORT).show();
+
+                                    // TODO: Guardar los usuarios también en la base de datos
+                                    // TODO: Se podrían guardar datos adicionales como el nombre
+
+                                    // Pasamos a la MainActivity
+                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                    startActivity(intent);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getApplicationContext(), "Ha habido un error al registrar al usuario", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    e.getStackTrace();
+
                                 }
                             });
 
-                } catch (Exception e) {
+                } catch (EmptyTextException e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     e.getStackTrace();
                 }
+                catch (DifferentPasswordException e) {
+                    passwordEt.setError(e.getMessage());
+                    confirmPassEt.setError(e.getMessage());
+                    e.getStackTrace();
+                }
+                catch (Exception ignored) {
+
+                }
             }
         });
-
-
     }
 
     private void validateData() throws Exception{
-        if (usernameEt.getText().toString().equals("") || passwordEt.getText().toString().equals("") || confirmPassEt.getText().toString().equals(""))
-            throw new Exception("Todos los campos deben estar completos para registrar al usuario");
+        if (emailEt.getText().toString().equals("") || passwordEt.getText().toString().equals("") || confirmPassEt.getText().toString().equals(""))
+            throw new EmptyTextException();
         else if (!passwordEt.getText().toString().equals(confirmPassEt.getText().toString()))
-            throw new Exception("Ambos campos de la contraseña deben coincidir");
+            throw new DifferentPasswordException();
     }
 }

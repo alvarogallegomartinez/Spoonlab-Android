@@ -8,6 +8,7 @@ import android.view.Menu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -28,12 +29,24 @@ public class MainActivity extends AppCompatActivity {
         Intent intent= getIntent();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Con el floatingButton vamos a poder hacer Sign Out y volver a la LoginActivity
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Press for signing out", Snackbar.LENGTH_LONG)
+                        .setAction("Sign out", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FirebaseAuth.getInstance().signOut();
+
+                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(intent);
+
+                                finish();
+                            }
+                        }).show();
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

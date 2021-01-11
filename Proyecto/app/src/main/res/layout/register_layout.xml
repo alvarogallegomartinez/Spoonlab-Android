@@ -43,7 +43,7 @@
 
 
         <EditText
-            android:id="@+id/username_et"
+            android:id="@+id/email_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -57,7 +57,7 @@
             android:hint="@string/password_et"
             android:layout_marginTop="16dp"
             android:textSize="20sp"
-            android:layout_below="@+id/username_et"
+            android:layout_below="@+id/email_et"
             android:inputType="textPassword"/>
 
         <EditText
