@@ -87,6 +87,7 @@
             android:background="@drawable/button_rounded"/>
 
         <TextView
+            android:id="@+id/create_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sign_in_btn"
