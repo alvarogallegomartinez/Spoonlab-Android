@@ -29,7 +29,8 @@
             android:gravity="center"
             android:text="@string/login_header"
             android:textColor="@color/black"
-            android:textSize="55sp" />
+            android:textSize="55sp"
+            android:maxLines="1"/>
 
         <TextView
             android:id="@+id/login_subheader"
@@ -43,7 +44,8 @@
             android:textSize="30sp"
             android:fontFamily="@font/raizen_anthem"
             android:textColor="@color/black"
-            android:layout_below="@+id/login_header"/>
+            android:layout_below="@+id/login_header"
+            android:maxLines="2"/>
 
     </RelativeLayout>
 
