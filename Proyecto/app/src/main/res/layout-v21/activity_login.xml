@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:hint="@string/username_et"/>
+            android:hint="@string/email_et"/>
 
         <EditText
             android:id="@+id/password_et"

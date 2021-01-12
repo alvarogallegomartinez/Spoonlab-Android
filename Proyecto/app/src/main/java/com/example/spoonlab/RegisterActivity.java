@@ -16,13 +16,18 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     private Button signUpBtn;
-    private EditText emailEt, passwordEt, confirmPassEt;
+    private EditText emailEt, passwordEt, confirmPassEt, usernameEt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +39,13 @@ public class RegisterActivity extends AppCompatActivity {
         emailEt = findViewById(R.id.email_et);
         passwordEt = findViewById(R.id.password_et);
         confirmPassEt = findViewById(R.id.confirm_password_et);
+        usernameEt = findViewById(R.id.username_et);
 
         // Autenticación con firebase
         mAuth = FirebaseAuth.getInstance();
+        // Base de datos de firebase
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference().child("Users");
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     String email = emailEt.getText().toString();
                     String password = passwordEt.getText().toString();
+                    String username = usernameEt.getText().toString();
 
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -53,12 +63,13 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onSuccess(AuthResult authResult) {
                                     Toast.makeText(getApplicationContext(), "Se ha registrado el usuario satisfactoriamente", Toast.LENGTH_SHORT).show();
 
-                                    // TODO: Guardar los usuarios también en la base de datos
-                                    // TODO: Se podrían guardar datos adicionales como el nombre
+                                    //Guardamos al usuario en la base de datos para almacenar datos adicionales como el username
+                                    addUserToDataBase(authResult.getUser(), username, email);
 
                                     // Pasamos a la MainActivity
                                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                     startActivity(intent);
+                                    finish();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -86,10 +97,31 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void validateData() throws Exception{
-        if (emailEt.getText().toString().equals("") || passwordEt.getText().toString().equals("") || confirmPassEt.getText().toString().equals(""))
+    private void validateData() throws Exception {
+        if (emailEt.getText().toString().equals("") || passwordEt.getText().toString().equals("") || confirmPassEt.getText().toString().equals("") || usernameEt.getText().toString().equals(""))
             throw new EmptyTextException();
         else if (!passwordEt.getText().toString().equals(confirmPassEt.getText().toString()))
             throw new DifferentPasswordException();
+    }
+
+    //
+    private void addUserToDataBase(FirebaseUser newUser, String username, String email){
+        User user = new User(username, email);
+        String userId = newUser.getUid();
+
+        myRef.child(userId).setValue(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Éxito al introducir al usuario en la base de datos, éxito al registrar", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error al introducir al usuario en la base de datos, exito al registrar", Toast.LENGTH_LONG).show();
+
+                    }
+                });
     }
 }
