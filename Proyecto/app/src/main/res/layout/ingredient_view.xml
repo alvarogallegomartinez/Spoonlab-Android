@@ -9,6 +9,7 @@ la lista de ingredientes del layout de la receta-->
     android:layout_height="wrap_content">
 
     <CheckBox
+        android:id="@+id/Ingredient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hola"/>
