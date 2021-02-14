@@ -35,19 +35,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Press for signing out", Snackbar.LENGTH_LONG)
-                        .setAction("Sign out", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                FirebaseAuth.getInstance().signOut();
-
-                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                startActivity(intent);
-
-                                finish();
-                            }
-                        }).show();
+                    Intent intent = new Intent(MainActivity.this, CreateRecipe.class);
+                    startActivity(intent);
             }
+
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
