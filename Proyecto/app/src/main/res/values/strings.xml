@@ -14,7 +14,8 @@
     <string name="login_header">Welcome to SpoonLab!</string>
     <string name="login_subheader">Sign in to discover a new delicious world</string>
     <string name="no_account">No account yet? Create one</string>
-    <string name="username_et">Email</string>
+    <string name="username_et">Username</string>
+    <string name="email_et">Email</string>
     <string name="password_et">Password</string>
     <string name="confirm_password_et">Confirm password</string>
     <string name="sign_in">SIGN IN</string>
