@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/New_rec_title1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name_of_the_recipe"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="75sp"
+            android:layout_marginHorizontal="10sp"
+            android:layout_marginBottom="10sp"
+            android:fontFamily="@font/baby_blue"/>
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@id/New_rec_title2"
+            app:layout_constraintEnd_toEndOf="@id/New_rec_title1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="10sp"/>
+
+        <TextView
+            android:id="@+id/New_rec_title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ingredients_and_quantities"
+            android:textSize="40sp"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/editTextTextPersonName"
+            android:layout_margin="10sp"
+            android:fontFamily="@font/baby_blue"
+            />
+
+        <EditText
+            android:id="@+id/editIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:layout_margin="10sp"
+            app:layout_constraintEnd_toEndOf="@id/New_rec_title2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/New_rec_title2" />
+        <TextView
+            android:id="@+id/New_rec_title3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Steps:"
+            android:textSize="40sp"
+            app:layout_constraintTop_toBottomOf="@+id/editIngredients"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/editIngredients"
+            android:layout_margin="10sp"
+            android:fontFamily="@font/baby_blue"
+            />
+
+        <EditText
+            android:id="@+id/editSteps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:layout_margin="10sp"
+            app:layout_constraintEnd_toEndOf="@id/New_rec_title3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/New_rec_title3" />
+    </LinearLayout>
+</ScrollView>
+
+
