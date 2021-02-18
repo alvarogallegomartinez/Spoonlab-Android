@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.title.setText(title);
         holder.description.setText(description);
 
-        LinkedList<String> ingredients = (LinkedList<String>) recipeList.get(position).getIngredients();
+        ArrayList<String> ingredients = recipeList.get(position).getIngredients();
 
         // Creo que de este modo ya funcionaría el añadir de forma dinámica los ingredientes
         // TODO: Hacer debug de esta parte

@@ -35,6 +35,10 @@ public class User {
         return username;
     }
 
+    public void addRecipe(Recipe recipe) {
+        this.recipes.add(recipe);
+    }
+
     // TODO: Estos métodos deben ser más complejos y deberían encapsular la modificación del mail y username en la base de datos también
     // TODO: Podrían enviar excepciones
     public void setEmail(String email) {
