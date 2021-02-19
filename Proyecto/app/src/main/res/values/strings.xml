@@ -24,7 +24,7 @@
     <string name="sign_up">SIGN UP</string>
     <string name="core_label">Core Course 2020/2021</string>
     <string name="credits_label">Álvaro Gallego, Sergio Gómez</string>
-    <string name="title_activity_create_recipe">CreateRecipe</string>
+    <string name="title_activity_create_recipe">Create Recipe</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

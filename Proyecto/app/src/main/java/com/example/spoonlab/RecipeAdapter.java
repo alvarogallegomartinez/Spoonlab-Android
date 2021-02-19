@@ -49,7 +49,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String title = recipeList.get(position).getTitle();
-        //String description = recipeList.get(position).getDescription();
 
         holder.title.setText(title);
 
@@ -60,20 +59,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 showRecipe(v, position);
             }
         });
-        /*holder.description.setText(description);
-
-        ArrayList<String> ingredients = recipeList.get(position).getIngredients();
-
-        // Creo que de este modo ya funcionaría el añadir de forma dinámica los ingredientes
-        for(String ingredient : ingredients) {
-            View checkIngredient = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.ingredient_view, null, false);
-
-            CheckBox ingredientCheckBox = checkIngredient.findViewById(R.id.Ingredient);
-            ingredientCheckBox.setText(ingredient);
-
-            holder.ingredientsLayout.addView(checkIngredient);
-        }*/
     }
 
     @Override
@@ -82,10 +67,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-        /*TextView title, description;
-        LinearLayout ingredientsLayout;*/
-
         TextView title;
         RelativeLayout recipePreview;
 
@@ -94,12 +75,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
             title = itemView.findViewById(R.id.recipe_name);
             recipePreview = itemView.findViewById(R.id.recipe_preview);
-            /*description = itemView.findViewById(R.id.description);
-
-            ingredientsLayout = itemView.findViewById(R.id.Ingredients);*/
         }
     }
 
+    // Mostrar la receta mediante un Dialog
     private void showRecipe(View v, int position) {
         Dialog recipeDialog = new Dialog(v.getContext());
         recipeDialog.setContentView(R.layout.recipe_layout);
@@ -131,5 +110,4 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         recipeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         recipeDialog.show();
     }
-
 }

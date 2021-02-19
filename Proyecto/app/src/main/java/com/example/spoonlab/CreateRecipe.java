@@ -46,12 +46,9 @@ public class CreateRecipe extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     validateData();
-
                     // Volver a la página principal
-                    Intent intent = new Intent(CreateRecipe.this, MainActivity.class);
-                    startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Recipe created successfully!", Toast.LENGTH_SHORT).show();
-                    //TODO: AÑADIR la receta al USUARIO
+
                     Recipe newRecipe = obtainRecipe();
                     addRecipeToUser(newRecipe);
 
