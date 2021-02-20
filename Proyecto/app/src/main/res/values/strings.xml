@@ -35,4 +35,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="ingredients_and_quantities">Ingredients and quantities:</string>
     <string name="name_of_the_recipe">Name of the recipe:</string>
+    <string name="steps">Steps:</string>
 </resources>
