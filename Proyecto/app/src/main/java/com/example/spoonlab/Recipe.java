@@ -1,5 +1,6 @@
 package com.example.spoonlab;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,19 +8,23 @@ public class Recipe {
     private String title;
     private String description;
     // TODO: Crear lista de ingredientes
-    private List<String> ingredients;
+    private ArrayList<String> ingredients;
 
     public Recipe(String title, String description) {
         this.title = title;
         this. description = description;
-        ingredients = new LinkedList<>();
+        ingredients = new ArrayList<>();
+    }
+
+    public Recipe() {
+        this("", "");
     }
 
     public void addIngredient(String ingredient) {
         this.ingredients.add(ingredient);
     }
 
-    public List<String> getIngredients() {
+    public ArrayList<String> getIngredients() {
         return ingredients;
     }
 

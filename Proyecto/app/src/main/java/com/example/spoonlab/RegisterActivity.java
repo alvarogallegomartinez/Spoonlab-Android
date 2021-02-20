@@ -104,7 +104,6 @@ public class RegisterActivity extends AppCompatActivity {
             throw new DifferentPasswordException();
     }
 
-    //
     private void addUserToDataBase(FirebaseUser newUser, String username, String email){
         User user = new User(username, email);
         String userId = newUser.getUid();
@@ -114,13 +113,13 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(), "Éxito al introducir al usuario en la base de datos, éxito al registrar", Toast.LENGTH_LONG).show();
+                        LoginActivity.currentUser = user;
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error al introducir al usuario en la base de datos, exito al registrar", Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(getApplicationContext(), "Error al introducir al usuario en la base de datos, exito al registrar: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
