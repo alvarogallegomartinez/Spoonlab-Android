@@ -12,6 +12,7 @@ la lista de ingredientes del layout de la receta-->
         android:id="@+id/Ingredient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hola"/>
+        android:text="Hola"
+        android:textColor="@color/white"/>
 
 </RelativeLayout>

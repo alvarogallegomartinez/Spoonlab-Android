@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:text="@string/name_of_the_recipe"
             android:textSize="40sp"
-            android:textColor="@color/black"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
             app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="@string/ingredients_and_quantities"
             android:textSize="40sp"
-            android:textColor="@color/black"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/editTextTextPersonName"
@@ -74,6 +74,7 @@
             app:layout_constraintStart_toStartOf="@id/editIngredients"
             android:layout_margin="10sp"
             android:fontFamily="@font/baby_blue"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
             />
 
         <EditText
