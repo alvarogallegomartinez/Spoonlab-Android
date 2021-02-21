@@ -1,54 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="20dp"
-    android:background="@android:drawable/dialog_holo_dark_frame">
+    android:layout_height="wrap_content">
 
-    <!--Este layout será el que aparezca dentro del recycler view, hay que tenerlo en mente-->
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Título"
-        android:textColor="@color/white"
-        android:fontFamily="@font/raizen_anthem"
-        android:textSize="50sp"/>
-
-
-    <!--Para añadir un ingrediente hay que añadirlo a este layout desde el
-    fragment o activity que corresponda-->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@android:drawable/dialog_holo_dark_frame">
 
-        android:id="@+id/Ingredients"
-        android:orientation="vertical">
+        <!--Este layout será el que aparezca dentro del recycler view, hay que tenerlo en mente-->
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ingredients"
-            android:textSize="35sp"
             android:textColor="@color/white"
+            android:fontFamily="@font/raizen_anthem"
+            android:textSize="50sp"/>
+
+
+        <!--Para añadir un ingrediente hay que añadirlo a este layout desde el
+        fragment o activity que corresponda-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/Ingredients"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ingredients"
+                android:textSize="35sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/lemonpie"/>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/steps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/steps"
+            android:textColor="@color/white"
+            android:textSize="35sp"
             android:fontFamily="@font/lemonpie"/>
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="10sp"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/steps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/steps"
-        android:textColor="@color/white"
-        android:textSize="35sp"
-        android:fontFamily="@font/lemonpie"/>
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descripción to guapa"
-        android:textSize="15sp"
-        android:layout_marginTop="10sp"
-        android:textColor="@color/white"/>
-</LinearLayout>
+
+</ScrollView>

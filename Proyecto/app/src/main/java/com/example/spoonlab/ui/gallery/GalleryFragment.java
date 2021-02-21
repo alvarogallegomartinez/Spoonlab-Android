@@ -26,9 +26,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+// My Recipes menu
 public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
@@ -38,6 +41,7 @@ public class GalleryFragment extends Fragment {
     private DatabaseReference myRef;
 
     private List<Recipe> recipeList;
+    private Map<Recipe, String> recipeMap;
     private RecipeAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -59,7 +63,8 @@ public class GalleryFragment extends Fragment {
                 .child("Users").child(mAuth.getCurrentUser().getUid()).child("Recipes");
 
         recipeList = new ArrayList<>();
-        adapter = new RecipeAdapter(recipeList);
+        recipeMap = new HashMap<>();
+        adapter = new RecipeAdapter(recipeMap, recipeList);
 
         recycler = (RecyclerView) root.findViewById(R.id.recipe_recycler_view);
         recycler.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
@@ -69,9 +74,11 @@ public class GalleryFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                recipeList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Recipe recipe = dataSnapshot.getValue(Recipe.class);
                     recipeList.add(recipe);
+                    recipeMap.put(recipeList.get(recipeList.size() - 1), dataSnapshot.getKey());
                 }
                 adapter.notifyDataSetChanged();
             }

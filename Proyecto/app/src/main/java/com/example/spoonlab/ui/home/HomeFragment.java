@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.spoonlab.DiscoverAdapter;
 import com.example.spoonlab.R;
 import com.example.spoonlab.Recipe;
 import com.example.spoonlab.RecipeAdapter;
@@ -27,9 +28,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+// Discover Menu
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -39,7 +43,8 @@ public class HomeFragment extends Fragment {
     private DatabaseReference myRef;
 
     private List<Recipe> recipeList;
-    private RecipeAdapter adapter;
+    private Map<Recipe, User> recipeMap;
+    private DiscoverAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +65,9 @@ public class HomeFragment extends Fragment {
         myRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         recipeList = new ArrayList<>();
-        adapter = new RecipeAdapter(recipeList);
+        recipeMap = new HashMap<>();
+
+        adapter = new DiscoverAdapter(recipeMap, recipeList);
 
         recycler = (RecyclerView) root.findViewById(R.id.discover_recycler_view);
         recycler.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
@@ -70,15 +77,17 @@ public class HomeFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                recipeList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (!dataSnapshot.getKey().equals(mAuth.getCurrentUser().getUid())) {
                         User user = dataSnapshot.getValue(User.class);
 
-                        LinkedList<Recipe> userRecipes = new LinkedList<>();
                         DataSnapshot recipes = dataSnapshot.child("Recipes");
 
-                        for(DataSnapshot recipe : recipes.getChildren())
+                        for(DataSnapshot recipe : recipes.getChildren()) {
                             recipeList.add(recipe.getValue(Recipe.class));
+                            recipeMap.put(recipeList.get(recipeList.size() - 1), user);
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged();
