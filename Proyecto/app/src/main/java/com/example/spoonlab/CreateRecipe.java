@@ -90,8 +90,8 @@ public class CreateRecipe extends AppCompatActivity {
         Recipe newRecipe = new Recipe(recipeName, recipeDescription);
 
         for(String ingredient : splitIngredients) {
-            System.out.println(ingredient);
-            newRecipe.addIngredient(ingredient);
+            if(ingredient != null && !ingredient.trim().isEmpty())
+                newRecipe.addIngredient(ingredient);
         }
 
         return newRecipe;
