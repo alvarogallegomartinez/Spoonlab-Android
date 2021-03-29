@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/remove_recipe"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="true"
+        android:padding="20dp"
+        app:srcCompat="@drawable/ic_remove_recipe" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recipe_preview"
+        android:layout_marginEnd="100dp">
+
+        <TextView
+            android:id="@+id/recipe_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Huevos rotos"
+            android:textSize="50sp"
+            android:fontFamily="@font/raizen_anthem"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginVertical="20dp"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

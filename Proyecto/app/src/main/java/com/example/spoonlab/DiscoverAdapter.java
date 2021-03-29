@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,32 +16,25 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 // TODO: Terminar de hacer el recycler view
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
+public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHolder> {
 
+    // La lista para manejar las recetas, el HashMap para relacionar las recetas con sus creadores
     List<Recipe> recipeList;
-    Map<Recipe, String> recipeMap;
+    Map<Recipe, User> recipeMap;
 
     ViewGroup parent;
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference myRef;
-
-    public RecipeAdapter(List<Recipe> recipeList) {
-        this.recipeList = recipeList;
-    }
-    public RecipeAdapter(Map<Recipe, String> recipeMap, List<Recipe> recipeList) {
+    public DiscoverAdapter(Map<Recipe, User> recipeMap, List<Recipe> recipeList) {
         this.recipeMap = recipeMap;
         this.recipeList = recipeList;
     }
@@ -51,14 +43,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_preview, parent,false);
+                .inflate(R.layout.discover_preview, parent,false);
 
         this.parent = parent;
-
-        // Autenticación con firebase
-        mAuth = FirebaseAuth.getInstance();
-        myRef = FirebaseDatabase.getInstance().getReference()
-                .child("Users").child(mAuth.getCurrentUser().getUid()).child("Recipes");
 
         return new ViewHolder(view);
     }
@@ -69,19 +56,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         holder.title.setText(title);
 
+        String creator = "Made By: " + recipeMap.get(recipeList.get(position)).getUsername();
+        holder.creator.setText(creator);
+
         // Cuando pulsamos el layout de la receta nos abre un desplegable de la receta en grande
         holder.recipePreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showRecipe(v, position);
-            }
-        });
-
-        holder.remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Remove recipe
-                removeRecipe(position);
             }
         });
     }
@@ -93,15 +75,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
+        TextView creator;
         RelativeLayout recipePreview;
-        ImageView remove;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.recipe_name);
+            creator = itemView.findViewById(R.id.creator);
             recipePreview = itemView.findViewById(R.id.recipe_preview);
-            remove = itemView.findViewById(R.id.remove_recipe);
         }
     }
 
@@ -136,20 +118,5 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         recipeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         recipeDialog.show();
-    }
-
-    private void removeRecipe(int position) {
-        String key = recipeMap.get(recipeList.get(position));
-
-        recipeList.remove(position);
-
-        notifyItemRemoved(position);
-        notifyItemChanged(position, recipeList.size());
-        notifyItemRangeChanged(position, recipeList.size());
-
-        Map<String, Object> recipeUpdate = new HashMap<>();
-        recipeUpdate.put("/" + key, null);
-
-        myRef.updateChildren(recipeUpdate);
     }
 }

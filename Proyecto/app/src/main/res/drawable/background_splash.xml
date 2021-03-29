@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <item android:drawable="@color/white" />
+    <item
+        android:width="300dp"
+        android:height="500dp"
+        android:gravity="center">
+        <bitmap
+            android:gravity="fill_horizontal|fill_vertical"
+            android:src="@drawable/spoon_and_name" />
+    </item>
+</layer-list>

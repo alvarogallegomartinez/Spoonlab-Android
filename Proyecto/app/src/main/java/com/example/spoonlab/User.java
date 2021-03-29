@@ -15,7 +15,7 @@ public class User {
     private String username;
     private String email;
     // TODO: Atributo lista que sean las recetas del usuario
-    private List<Recipe> recipes;
+    private LinkedList<Recipe> recipes;
 
     public User() {
         this("", "");
@@ -33,6 +33,14 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public void addRecipe(Recipe recipe) {
+        this.recipes.add(recipe);
+    }
+
+    public LinkedList<Recipe> getRecipes() {
+        return recipes;
     }
 
     // TODO: Estos métodos deben ser más complejos y deberían encapsular la modificación del mail y username en la base de datos también

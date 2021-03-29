@@ -19,6 +19,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -26,7 +31,11 @@ public class LoginActivity extends AppCompatActivity {
     private TextView create_account;
 
     private EditText emailEt, passwordEt;
+
     private FirebaseAuth mAuth;
+    private DatabaseReference myRef;
+
+    public static User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +53,12 @@ public class LoginActivity extends AppCompatActivity {
         // Autenticación con firebase
         mAuth = FirebaseAuth.getInstance();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser loggedUser = mAuth.getCurrentUser();
 
         // Si el usuario ya esta logeado podemos iniciar directamente el MainActivity
         // TODO: Hacer esto de forma algo más elegante (Welcome + username)
-        if (currentUser != null) {
-            Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT).show();
-            changeActivity();
-
-            // Esto hace que no podamos volver a la pantalla de login
-            // TODO: Añadir un botón para hacer log out en el MainActivity
-            finish();
+        if (loggedUser != null) {
+            logIn(loggedUser.getUid());
         }
 
         sign_in_btn.setOnClickListener(new View.OnClickListener() {
@@ -71,8 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    changeActivity();
-                                    finish();
+                                    logIn(authResult.getUser().getUid());
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -107,10 +110,30 @@ public class LoginActivity extends AppCompatActivity {
             throw new EmptyTextException();
     }
 
-    // Cambiar a la MainActivity
-    // Lo pongo en una función para evitar copiar código
-    private void changeActivity() {
+    private void logIn(String uid) {
+        getCurrentUser(uid);
+
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+
+        finish();
+    }
+
+    private void getCurrentUser(String uid) {
+        myRef = FirebaseDatabase.getInstance().getReference()
+                .child("Users").child(uid);
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                currentUser = snapshot.getValue(User.class);
+                Toast.makeText(getApplicationContext(), "Welcome " + currentUser.getUsername() + "!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
